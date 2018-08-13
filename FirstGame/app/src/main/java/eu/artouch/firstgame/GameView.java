@@ -57,4 +57,9 @@ public class GameView extends View {
 
         return super.onTouchEvent(event);
     }
+
+    public void clearGameView(){
+        pointF.clear();
+        invalidate();
+    }
 }
