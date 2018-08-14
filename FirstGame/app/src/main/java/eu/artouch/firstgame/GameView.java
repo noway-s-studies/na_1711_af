@@ -51,6 +51,10 @@ public class GameView extends View {
 
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             pointF.add(new PointF(event.getX(), event.getY()));
+            if (pointF.size() == 5){
+                ((MainActivity)getContext()).changeText("5 Circle Achievement");
+            }
+
             invalidate();
         }
 
