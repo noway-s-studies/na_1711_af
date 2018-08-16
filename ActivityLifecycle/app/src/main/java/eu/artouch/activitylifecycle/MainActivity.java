@@ -1,8 +1,14 @@
 package eu.artouch.activitylifecycle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,7 +16,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("Lifecycle", "onCreate called" );
+        Log.d("FoKepernyo", "onCreate called" );
+
+        final TextView felirat = findViewById(R.id.felirat);
+        final EditText bevitel = findViewById(R.id.bevitel);
+
+        Button navigacio = findViewById(R.id.navigacio);
+
+        navigacio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PhoneNumberActivity.class);
+                intent.putExtra("USERNAME", bevitel.getText().toString());
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -19,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Lifecycle", "onStart called" );
+        Log.d("FoKepernyo", "onStart called" );
     }
 
     /**
@@ -28,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Lifecycle", "onResume called" );
+        Log.d("FoKepernyo", "onResume called" );
     }
 
     /**
@@ -36,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onPause() {
-        Log.d("Lifecycle", "onPause called" );
+        Log.d("FoKepernyo", "onPause called" );
         super.onPause();
     }
 
@@ -45,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onStop() {
-        Log.d("Lifecycle", "onStop called" );
+        Log.d("FoKepernyo", "onStop called" );
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d("Lifecycle", "onDestroy called" );
+        Log.d("FoKepernyo", "onDestroy called" );
         super.onDestroy();
     }
 }
