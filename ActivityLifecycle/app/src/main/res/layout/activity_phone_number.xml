@@ -10,6 +10,16 @@
         android:id="@+id/username_felirat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/telefonszam_bevitel"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/ok_gomb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"/>
 
 
 </LinearLayout>
