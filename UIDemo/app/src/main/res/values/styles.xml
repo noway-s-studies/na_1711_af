@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="GreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#297e29</item>
+        <item name="colorPrimaryDark">#a22f2f</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+     <style name="redStyle">
+         <item name="android:background">#FF0000</item>
+     </style>
+    <style name="marginStyle">
+        <item name="android:layout_margin">16dp</item>
+    </style>
+    <style name="redStyle.redAndWhite" parent="redStyle">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="largRedText">
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
