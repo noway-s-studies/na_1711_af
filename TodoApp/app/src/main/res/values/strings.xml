@@ -2,4 +2,7 @@
     <string name="app_name">TodoApp</string>
     <string name="btn_animation">Animáció</string>
     <string name="btn_popup">Felugró ablak</string>
+    <string name="btnpopup">PopUp</string>
+    <string name="menu_anim">Animáció</string>
+    <string name="menu_popup">Felugró ablak</string>
 </resources>
