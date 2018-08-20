@@ -2,8 +2,14 @@ package eu.artouch.todoapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -15,6 +21,8 @@ import eu.artouch.todoapp.model.Todo;
 public class TodoActivity extends AppCompatActivity {
 
     private List<Todo> todos;
+    private TodoAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +66,32 @@ public class TodoActivity extends AppCompatActivity {
         todos.add(new Todo("35. Előadás", "Megtartani", "Péter"));
         todos.add(new Todo("36. Virágok", "Meglocsolni", "Kertész"));
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        TodoAdapter adapter = new TodoAdapter(this, todos);
+        linearLayoutManager = new LinearLayoutManager(this);
+        adapter = new TodoAdapter(this, todos);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        decoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+        recyclerView.addItemDecoration(decoration);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_todo,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()== R.id.removeAll) {
+            todos.clear();
+            adapter.notifyDataSetChanged();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

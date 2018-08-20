@@ -5,4 +5,5 @@
     <string name="btnpopup">PopUp</string>
     <string name="menu_anim">Animáció</string>
     <string name="menu_popup">Felugró ablak</string>
+    <string name="remove_all_menu">Összes törlése</string>
 </resources>
