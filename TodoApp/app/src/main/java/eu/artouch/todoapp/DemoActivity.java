@@ -4,14 +4,15 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ public class DemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         animateBTN = findViewById(R.id.animateBTN);
         popupBTN = findViewById(R.id.popupBTN);
 
@@ -33,6 +37,7 @@ public class DemoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Animation btnAnimation = AnimationUtils.loadAnimation(DemoActivity.this,R.anim.anim_button);
                 popupBTN.startAnimation(btnAnimation);
+                toolbar.startAnimation(btnAnimation);
             }
         });
         popupBTN.setOnClickListener(new View.OnClickListener() {
@@ -47,11 +52,19 @@ public class DemoActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_demo,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()== R.id.animateMenu) {
+            Animation btnAnimation = AnimationUtils.loadAnimation(DemoActivity.this,R.anim.anim_button);
+            popupBTN.startAnimation(btnAnimation);
+        } else if (item.getItemId()==R.id.popupMenu){
+            showAllertDialog();
+        }
         return super.onOptionsItemSelected(item);
     }
 

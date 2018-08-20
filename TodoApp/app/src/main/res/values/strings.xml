@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TodoApp</string>
+    <string name="app_name">Teendők</string>
     <string name="btn_animation">Animáció</string>
     <string name="btn_popup">Felugró ablak</string>
     <string name="btnpopup">PopUp</string>

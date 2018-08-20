@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/animateMenu"
-        android:title="@string/menu_anim" />
+        android:title="@string/menu_anim"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/popupMenu"
-        android:title="@string/menu_popup" />
+        android:title="@string/menu_popup"/>
 </menu>
