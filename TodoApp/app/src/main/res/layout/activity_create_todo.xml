@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateTodoActivity"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <EditText
+        android:id="@+id/createTitleET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/create_todo_title"/>
+    <EditText
+        android:id="@+id/createDescriptionET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/create_todo_description"/>
+    <EditText
+        android:id="@+id/createAssigneeET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/create_todo_assignee"/>
+    <Button
+        android:id="@+id/createTodoBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_todo_btn"
+        android:layout_gravity="center"/>
+</LinearLayout>

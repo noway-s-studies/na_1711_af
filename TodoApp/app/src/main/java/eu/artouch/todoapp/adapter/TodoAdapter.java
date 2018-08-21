@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     private final Context context;
     private final List<Todo> todos;
     private final LayoutInflater inflater;
+    private OnItemLongClickListener lisener;
 
-    public TodoAdapter(Context context, List<Todo> todos) {
+    public TodoAdapter(Context context, List<Todo> todos, OnItemLongClickListener lisener) {
         this.context = context;
         this.todos = todos;
         this.inflater=LayoutInflater.from(context);
+        this.lisener = lisener;
     }
 
     /**
@@ -45,11 +48,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
      * @param position
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Todo todo = todos.get(position);
         holder.titleTV.setText(todo.getTitlr());
         holder.assigneeTV.setText("Felelős: "+todo.getAssignee());
         holder.descriptionTV.setText(todo.getDescription());
+        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                lisener.onItemLongClick(position);
+                return false;
+            }
+        });
         Log.d("ViewHolder", "Id: " + position);
     }
 
@@ -69,12 +79,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         public final TextView titleTV;
         public final TextView descriptionTV;
         public final TextView assigneeTV;
+        public final LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             assigneeTV = itemView.findViewById(R.id.assigneeTV);
         }
+    }
+
+    public interface OnItemLongClickListener{
+        void onItemLongClick(int position);
     }
 }

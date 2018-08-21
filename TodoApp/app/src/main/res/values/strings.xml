@@ -6,4 +6,10 @@
     <string name="menu_anim">Animáció</string>
     <string name="menu_popup">Felugró ablak</string>
     <string name="remove_all_menu">Összes törlése</string>
+    <string name="create_todo_title">A teendő címe</string>
+    <string name="create_todo_description">Teendő leírása</string>
+    <string name="create_todo_assignee">Teendő felelőse</string>
+    <string name="create_todo_btn">Létrehozás</string>
+    <string name="createTodoLabel">Teendő hozzáadása</string>
+    <string name="create_todo_menu">Hozzáadás</string>
 </resources>
