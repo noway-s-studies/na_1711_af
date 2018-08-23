@@ -1,6 +1,7 @@
 package eu.artouch.todoapp;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,25 +19,35 @@ import android.widget.Toast;
 
 public class DemoActivity extends AppCompatActivity {
 
+    public static final String COUNTER = "COUNTER";
+    public static final String DELMO_PREFERENCES = "DELMO_PREFERENCES";
     private Button animateBTN;
     private Button popupBTN;
+    private Toolbar toolbar;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
+        counter=0;
+        if (savedInstanceState != null) {
+            counter=savedInstanceState.getInt(COUNTER);
+        }
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         animateBTN = findViewById(R.id.animateBTN);
         popupBTN = findViewById(R.id.popupBTN);
-
+        popupBTN.setText("Megnyomták: "+counter+"x");
         animateBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                counter++;
+                popupBTN.setText("Megnyomták: "+counter+"x");
                 Animation btnAnimation = AnimationUtils.loadAnimation(DemoActivity.this,R.anim.anim_button);
-                popupBTN.startAnimation(btnAnimation);
                 toolbar.startAnimation(btnAnimation);
             }
         });
@@ -98,5 +109,15 @@ public class DemoActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(COUNTER, counter);
+        super.onSaveInstanceState(outState);
+    }
+    private void setAlreadyStarted(boolean isStarted){
+        SharedPreferences sharedPreferences=getSharedPreferences(DELMO_PREFERENCES, MODE_PRIVATE);
+
     }
 }
