@@ -21,6 +21,7 @@ public class DemoActivity extends AppCompatActivity {
 
     public static final String COUNTER = "COUNTER";
     public static final String DELMO_PREFERENCES = "DELMO_PREFERENCES";
+    public static final String IS_ALREADY_STARTED = "IS_ALREADY_STARTED";
     private Button animateBTN;
     private Button popupBTN;
     private Toolbar toolbar;
@@ -59,6 +60,25 @@ public class DemoActivity extends AppCompatActivity {
                 Toast.makeText(DemoActivity.this, "Ez egy Toast felugró ablak", Toast.LENGTH_LONG).show();
             }
         });
+
+        if (!isAlreadyStarted()) {
+            showWelcomePopup();
+            setAlreadyStarted(true);
+        }
+    }
+
+    private void showWelcomePopup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Üdvözlet");
+        builder.setMessage("Most használod elősször az alkalmazást.");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -118,6 +138,12 @@ public class DemoActivity extends AppCompatActivity {
     }
     private void setAlreadyStarted(boolean isStarted){
         SharedPreferences sharedPreferences=getSharedPreferences(DELMO_PREFERENCES, MODE_PRIVATE);
-
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putBoolean(IS_ALREADY_STARTED, isStarted);
+        editor.commit();
+    }
+    private boolean isAlreadyStarted(){
+        SharedPreferences sharedPreferences = getSharedPreferences(DELMO_PREFERENCES,MODE_PRIVATE);
+        return sharedPreferences.getBoolean(IS_ALREADY_STARTED,false);
     }
 }
