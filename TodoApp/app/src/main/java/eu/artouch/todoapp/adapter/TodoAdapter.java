@@ -50,7 +50,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Todo todo = todos.get(position);
-        holder.titleTV.setText(todo.getTitlr());
+        holder.titleTV.setText(todo.getTitle());
         holder.assigneeTV.setText("Felelős: "+todo.getAssignee());
         holder.descriptionTV.setText(todo.getDescription());
         holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {

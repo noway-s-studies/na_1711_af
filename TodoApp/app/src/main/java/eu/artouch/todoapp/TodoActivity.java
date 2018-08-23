@@ -10,21 +10,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eu.artouch.todoapp.adapter.TodoAdapter;
 import eu.artouch.todoapp.model.Todo;
+import eu.artouch.todoapp.repository.Repository;
+import eu.artouch.todoapp.repository.sqlite.SQLiteRepository;
 
 public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnItemLongClickListener {
 
     public static final int REQUEST_CODE = 111;
     private List<Todo> todos;
     private TodoAdapter adapter;
+    private Repository repository = new SQLiteRepository();
     private LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -32,16 +32,7 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
         todos = new ArrayList<>();
-        todos.add(new Todo("01. Karácsonyi ajándékok", "Megvenni", "Én"));
-        todos.add(new Todo("02. Előadás", "Megtartani", "Péter"));
-        todos.add(new Todo("03. Virágok", "Meglocsolni", "Kertész"));
-        todos.add(new Todo("04. Karácsonyi ajándékok", "Megvenni", "Én"));
-        todos.add(new Todo("05. Előadás", "Megtartani", "Péter"));
-        todos.add(new Todo("06. Virágok", "Meglocsolni", "Kertész"));
-        todos.add(new Todo("07. Karácsonyi ajándékok", "Megvenni", "Én"));
-        todos.add(new Todo("08. Előadás", "Megtartani", "Péter"));
-        todos.add(new Todo("09. Virágok", "Meglocsolni", "Kertész"));
-        todos.add(new Todo("10. Karácsonyi ajándékok", "Megvenni", "Én"));
+
 
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new TodoAdapter(this, todos, this);
@@ -53,6 +44,82 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         decoration.setDrawable(getResources().getDrawable(R.drawable.divider));
         recyclerView.addItemDecoration(decoration);
+
+        loadTodosAsync();
+    }
+
+    private void loadTodosAsync() {
+        Thread loadThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                repository.open(TodoActivity.this);
+                final List<Todo> todosLoaded = repository.getAllTodo();
+                repository.close();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        todos.clear();
+                        todos.addAll(todosLoaded);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        loadThread.start();
+    }
+
+    private void savedTodosAsync(final Todo todo) {
+        Thread saveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                repository.open(TodoActivity.this);
+                repository.saveTodo(todo);
+                repository.close();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadTodosAsync();
+                    }
+                });
+            }
+        });
+        saveThread.start();
+    }
+
+    private void deleteTodoAsync(final Todo todo) {
+        Thread saveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                repository.open(TodoActivity.this);
+                repository.deleteTodo(todo);
+                repository.close();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadTodosAsync();
+                    }
+                });
+            }
+        });
+        saveThread.start();
+    }
+
+    private void deleteAllAsync() {
+        Thread saveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                repository.open(TodoActivity.this);
+                repository.deleteAllTodo();
+                repository.close();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadTodosAsync();
+                    }
+                });
+            }
+        });
+        saveThread.start();
     }
 
     @Override
@@ -65,8 +132,7 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()== R.id.removeAll) {
-            todos.clear();
-            adapter.notifyDataSetChanged();
+            deleteAllAsync();
         } else if(item.getItemId()==R.id.createTodoMenu){
             Intent intent = new Intent(this, CreateTodoActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
@@ -82,8 +148,7 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
                 String description = data.getStringExtra(CreateTodoActivity.KEY_DESCRIPTION);
                 String assignee = data.getStringExtra(CreateTodoActivity.KEY_ASSIGNEE);
                 Todo todo = new Todo(title,description,assignee);
-                todos.add(todo);
-                adapter.notifyDataSetChanged();
+                savedTodosAsync(todo);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,7 +156,7 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
 
     @Override
     public void onItemLongClick(int position) {
-        todos.remove(position);
-        adapter.notifyDataSetChanged();
+        Todo todo=todos.get(position);
+        deleteTodoAsync(todo);
     }
 }
