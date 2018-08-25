@@ -9,28 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DemoActivity" >
-        </activity>
+        <activity android:name=".DemoActivity"></activity>
         <activity
             android:name=".TodoActivity"
             android:label="@string/app_name"
             android:theme="@style/TodoTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CreateTodoActivity"
-            android:theme="@style/TodoTheme"
-            android:label="@string/createTodoLabel">
-        </activity>
+            android:label="@string/createTodoLabel"
+            android:theme="@style/TodoTheme"></activity>
+
         <receiver android:name=".receiver.BatteryReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BATTERY_LOW"/>
-                <action android:name="android.intent.action.BATTERY_OKAY"/>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>
