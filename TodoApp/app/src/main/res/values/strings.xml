@@ -12,4 +12,5 @@
     <string name="create_todo_btn">Létrehozás</string>
     <string name="createTodoLabel">Teendő hozzáadása</string>
     <string name="create_todo_menu">Hozzáadás</string>
+    <string name="btn_call">Hívás</string>
 </resources>

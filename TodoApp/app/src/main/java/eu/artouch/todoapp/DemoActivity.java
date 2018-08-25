@@ -1,7 +1,10 @@
 package eu.artouch.todoapp;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
 
 public class DemoActivity extends AppCompatActivity {
 
@@ -48,7 +52,7 @@ public class DemoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 counter++;
                 popupBTN.setText("Megnyomták: "+counter+"x");
-                Animation btnAnimation = AnimationUtils.loadAnimation(DemoActivity.this,R.anim.anim_button);
+                Animation btnAnimation = AnimationUtils.loadAnimation(DemoActivity.this, R.anim.anim_button);
                 toolbar.startAnimation(btnAnimation);
             }
         });
@@ -65,6 +69,18 @@ public class DemoActivity extends AppCompatActivity {
             showWelcomePopup();
             setAlreadyStarted(true);
         }
+
+        final Button callBTN = findViewById(R.id.callBTN);
+        callBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+36303101099"));
+                    startActivity(callIntent);
+                } catch (ActivityNotFoundException e){
+                    Toast.makeText(DemoActivity.this, "Nem érhető el tárcsázó alkalmazás", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void showWelcomePopup() {

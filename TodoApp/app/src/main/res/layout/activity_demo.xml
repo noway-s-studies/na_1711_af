@@ -44,10 +44,10 @@
             android:textColor="@drawable/button_text_color" />
 
         <Button
-            android:id="@+id/popupBTN"
+            android:id="@+id/callBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_popup" />
+            android:text="@string/btn_call" />
 
         <View
             android:layout_width="100dp"

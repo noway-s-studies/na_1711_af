@@ -24,13 +24,14 @@ public class TodoActivity extends AppCompatActivity implements TodoAdapter.OnIte
     public static final int REQUEST_CODE = 111;
     private List<Todo> todos;
     private TodoAdapter adapter;
-    private Repository repository = new SQLiteRepository();
+    private Repository repository;
     private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
+        repository = new SQLiteRepository();
         todos = new ArrayList<>();
 
 
