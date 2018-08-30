@@ -10,20 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DemoActivity"></activity>
+        <activity android:name=".WelcomeActivity"></activity>
         <activity
             android:name=".TodoActivity"
             android:label="@string/app_name"
             android:theme="@style/TodoTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CreateTodoActivity"
             android:label="@string/createTodoLabel"
-            android:theme="@style/TodoTheme"></activity>
+            android:theme="@style/TodoTheme">
+        </activity>
+
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".receiver.BatteryReceiver">
             <intent-filter>
@@ -33,11 +37,9 @@
         </receiver>
         <receiver android:name=".receiver.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>
