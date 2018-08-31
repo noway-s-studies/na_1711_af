@@ -11,6 +11,16 @@ public class Todo {
     }
 
     private Long id;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     private String titlr;
     private String description;
 
@@ -54,5 +64,20 @@ public class Todo {
 
     public void setAssignee(String assignee) {
         this.assignee = assignee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Todo todo = (Todo) o;
+
+        return key != null ? key.equals(todo.key) : todo.key == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return key != null ? key.hashCode() : 0;
     }
 }

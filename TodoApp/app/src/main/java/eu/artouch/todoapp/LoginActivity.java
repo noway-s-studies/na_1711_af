@@ -52,12 +52,12 @@ public class LoginActivity extends BaseActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 hideProgressDialog();
                                 if (task.isSuccessful()) {
-                                    FirebaseUser user=task.getResult().getUser();
+                                    FirebaseUser user = task.getResult().getUser();
                                     user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(userNameFromEmail(user.getEmail())).build());
 
-                                    Toast.makeText(LoginActivity.this,"Regisztráció sikeres!",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"Regisztrációs hiba történt!",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Regisztráció sikeres!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Regisztrációs hiba történt!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -65,7 +65,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 hideProgressDialog();
-                                Toast.makeText(LoginActivity.this, "Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         })
                 ;
@@ -90,11 +90,11 @@ public class LoginActivity extends BaseActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 hideProgressDialog();
                                 if (task.isSuccessful()) {
-                                    Intent intent=new Intent(LoginActivity.this, TodoActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, TodoActivity.class);
                                     startActivity(intent);
                                     finish();
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"Belépési hiba történt!",Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Belépési hiba történt!", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 hideProgressDialog();
-                                Toast.makeText(LoginActivity.this, "Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -114,7 +114,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public boolean isFormValid(){
+    public boolean isFormValid() {
         if (TextUtils.isEmpty(emailET.getText().toString())) {
             emailET.setError("Kötelező");
             return false;
@@ -124,14 +124,14 @@ public class LoginActivity extends BaseActivity {
             passwordET.setError("Kötelező");
             return false;
         }
-        return  true;
+        return true;
     }
 
 
-    public String userNameFromEmail(String email){
+    public String userNameFromEmail(String email) {
         if (email.contains("@")) {
             return email.split("@")[0];
-        }else{
+        } else {
             return email;
         }
     }
