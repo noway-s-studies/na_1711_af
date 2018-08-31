@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "24888959974",
-    "firebase_url": "https://todoapp-895ab.firebaseio.com",
-    "project_id": "todoapp-895ab",
-    "storage_bucket": "todoapp-895ab.appspot.com"
+    "project_number": "181396098446",
+    "firebase_url": "https://todoapp-eac35.firebaseio.com",
+    "project_id": "todoapp-eac35",
+    "storage_bucket": "todoapp-eac35.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:24888959974:android:031b6dac2f3c2427",
+        "mobilesdk_app_id": "1:181396098446:android:031b6dac2f3c2427",
         "android_client_info": {
           "package_name": "eu.artouch.todoapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "24888959974-h8765j7si8vr78bsqooknt1kedb05m5h.apps.googleusercontent.com",
+          "client_id": "181396098446-tsml6mtodikljjd8dnp4ejmj80oml369.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "eu.artouch.todoapp",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "24888959974-ugs652ns5c7mejvtlgbshnhpuhfbtnka.apps.googleusercontent.com",
+          "client_id": "181396098446-abgoioljdqdtun4kjsch2pu42a6pl240.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAyfaC30FNGMgAilhKOk32lZfNMJ1RpCFM"
+          "current_key": "AIzaSyAmKN12T8i8iyICcrS5-IEsE71IyHw-aRY"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "24888959974-ugs652ns5c7mejvtlgbshnhpuhfbtnka.apps.googleusercontent.com",
+              "client_id": "181396098446-abgoioljdqdtun4kjsch2pu42a6pl240.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

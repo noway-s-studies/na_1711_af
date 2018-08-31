@@ -37,56 +37,27 @@ public class LoginActivity extends BaseActivity {
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (!isFromValid()) {
+            public void onClick(View view) {
+                if (!isFormValid()) {
                     return;
                 }
+
                 showProgressDialog();
-                FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(
-                                emailET.getText().toString(),
-                                passwordET.getText().toString())
+
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                        emailET.getText().toString(),
+                        passwordET.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 hideProgressDialog();
                                 if (task.isSuccessful()) {
-                                    FirebaseUser user = task.getResult().getUser();
-                                    user.updateProfile(
-                                            new UserProfileChangeRequest.Builder()
-                                                    .setDisplayName(userNameFromEmail(userNameFromEmail(user.getEmail()))).build()
-                                    );
-                                    Toast.makeText(LoginActivity.this,"Regisztráció sikeres", Toast.LENGTH_LONG).show();
-                                } else{
-                                    Toast.makeText(LoginActivity.this,"Regisztrációs hiba történt!", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        hideProgressDialog();
-                        Toast.makeText(LoginActivity.this,"Error: "+e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-        loginBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isFromValid()) {
-                    return;
-                }
-                showProgressDialog();
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailET.getText().toString(),passwordET.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(LoginActivity.this, TodoActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else{
-                                    Toast.makeText(LoginActivity.this,"Belépési hiba történt!", Toast.LENGTH_LONG).show();
+                                    FirebaseUser user=task.getResult().getUser();
+                                    user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(userNameFromEmail(user.getEmail())).build());
+
+                                    Toast.makeText(LoginActivity.this,"Regisztráció sikeres!",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(LoginActivity.this,"Regisztrációs hiba történt!",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -94,27 +65,72 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 hideProgressDialog();
-                                Toast.makeText(LoginActivity.this,"Error: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                ;
+            }
+        });
+
+
+        loginBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isFormValid()) {
+                    return;
+                }
+
+                showProgressDialog();
+
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                        emailET.getText().toString(),
+                        passwordET.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                hideProgressDialog();
+                                if (task.isSuccessful()) {
+                                    Intent intent=new Intent(LoginActivity.this, TodoActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Toast.makeText(LoginActivity.this,"Belépési hiba történt!",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                hideProgressDialog();
+                                Toast.makeText(LoginActivity.this, "Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+
                             }
                         });
 
             }
         });
+
     }
 
-    public boolean isFromValid(){
+
+    public boolean isFormValid(){
         if (TextUtils.isEmpty(emailET.getText().toString())) {
-            emailET.setError("Kötelező!");
+            emailET.setError("Kötelező");
+            return false;
         }
+
         if (TextUtils.isEmpty(passwordET.getText().toString())) {
-            passwordET.setError("Kötelező!");
+            passwordET.setError("Kötelező");
+            return false;
         }
         return  true;
     }
 
+
     public String userNameFromEmail(String email){
         if (email.contains("@")) {
-            return  email.split("@")[0];
+            return email.split("@")[0];
         }else{
             return email;
         }
